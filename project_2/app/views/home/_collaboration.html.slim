@@ -1,0 +1,16 @@
+.dm-landing-screen_collaboration#dm-landing-screen_collaboration
+  .dm-landing-collaboration_overlay
+    .dm-landing-collaboration_overlay_left
+    .dm-landing-collaboration_overlay_right
+  .dm-landing-collaboration
+    .container
+      .col-sm-6.dm-landing-collaborate-work
+        .dm-landing-collaborate-title Work with us
+        - if (collaborate_work = Setting.collaborate_work)
+          .dm-landing-collaborate-description= collaborate_work
+        = link_to 'Contact us', 'mailto:info@diversido-mobile.com', class: 'dm-btn-collaborate'
+      .col-sm-6.text-right.dm-landing-collaborate-join
+        .dm-landing-collaborate-title Join our team
+        - if (collaborate_join = Setting.collaborate_join)
+          .dm-landing-collaborate-description= collaborate_join
+        = link_to 'Career', 'mailto:info@diversido-mobile.com', class: 'dm-btn-collaborate'

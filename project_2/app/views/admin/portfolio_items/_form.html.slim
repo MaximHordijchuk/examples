@@ -1,0 +1,22 @@
+= semantic_form_for [:admin, @portfolio_item], class: 'formtastic' do |f|
+  - f.object.build_cover unless f.object.cover.present?
+  = f.inputs 'Portfolio Item Details' do
+    = f.input :title
+    = f.input :brief
+    = f.input :description
+    = f.input :categories, as: :check_boxes
+    = f.input :status, as: :select, collection: PortfolioItem.statuses.keys, include_blank: false
+    = f.input :featured, as: :boolean, required: false
+    li
+      = f.label :cover do
+        | Cover
+        abbr title="required" *
+      = f.fields_for :cover do |a|
+        .image-preview-holder
+          = a.attachment_field :file, direct: true, class: 'file-inputs uploader-preview', title: 'Choose cover'
+          .image-preview.dm-upload-preview data-url="#{attachment_url(a.object, :file, :fill, 150, 150)}"
+            .image-preview-item
+              div style="background-image: url(#{attachment_url(a.object, :file, :fill, 150, 150)})"
+      div= object_error_sentence_html(f.object, :cover)
+    = render partial: 'shared/upload_assets', locals: { f: f }
+  = f.actions

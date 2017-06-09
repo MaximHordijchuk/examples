@@ -1,0 +1,20 @@
+li
+  = f.label :attachments do
+    | Attachments
+    abbr title="required" *
+  .dropzone.js-dropzone.dm-dropzone
+    .dropzone-previews
+    .dm-clickable-zone
+    .dz-default.dz-message.dm-message
+      span Drop files or #{link_to 'Click Here', 'javascript: void(0);'} to Upload
+    = f.attachment_field :assets_files, multiple: true, class: 'dz-form-value'
+  = object_error_sentence_html(f.object, :assets)
+  .js-upload-errors
+- if f.object.assets.any?
+  .hide
+    = f.fields_for :assets do |a|
+      - if a.object.persisted?
+        .js-image-asset data-id=a.object.id id="asset-#{a.object.id}" data-size=a.object.file_size
+          = image_tag attachment_url(a.object, :file, :fill, 150, 150)
+          = a.check_box :_destroy
+          = a.hidden_field :ordinal, class: 'js-ordinal'

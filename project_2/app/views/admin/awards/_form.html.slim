@@ -1,0 +1,7 @@
+= semantic_form_for [:admin, @award], class: 'formtastic' do |f|
+  = f.inputs 'Award Details' do
+    = f.input :title
+    = f.input :description
+    = f.input :status, as: :select, collection: Award.statuses.keys, include_blank: false
+    = render partial: 'shared/upload_assets', locals: { f: f }
+  = f.actions
